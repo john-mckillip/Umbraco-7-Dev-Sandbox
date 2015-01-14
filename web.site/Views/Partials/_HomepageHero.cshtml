@@ -1,0 +1,26 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+
+<div class="inner">
+
+    <header>
+        @if (CurrentPage.HasValue("heroTitle"))
+        {
+            <h2>@CurrentPage.heroTitle</h2>
+        }
+    </header>
+    @if (CurrentPage.HasValue("heroSubtitle"))
+    {
+        <p>@CurrentPage.heroSubtitle</p>
+    }
+    <footer>
+        <ul class="buttons vertical">
+            @if (CurrentPage.HasValue("heroButtonLink"))
+            {
+                string buttonTitle = CurrentPage.HasValue("heroButtonTitle") ? CurrentPage.heroButtonTitle : "Learn More";
+                <li><a href="@CurrentPage.heroButtonLink" class="button fit scrolly">@buttonTitle</a></li>
+            }
+        </ul>
+    </footer>
+</div>
+
+

@@ -1,0 +1,53 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+
+@{
+    var startNode = CurrentPage.AncestorOrSelf(1);
+
+    @* set to 1 for no menus *@
+    var maxLevels = 2;
+
+    var currentLevel = CurrentPage.AncestorOrSelf(1).Level;
+
+    if (startNode != null)
+    {
+        <nav>
+            @traverse(startNode, maxLevels, currentLevel)
+        </nav> <!-- /site-nav -->
+    }
+}
+
+@helper traverse(dynamic parent, int maxLevels, int prevLevel)
+{
+    <ul>
+        @* loop through all children where UmbracoNaviHide is not true *@
+        @{
+            var nodeCollection = parent.Children.Where("DocumentTypeAlias != \"Folder\" && !umbracoNaviHide");
+        }
+        @foreach (var node in nodeCollection)
+        {
+
+            @* if there is no specified navTitle, then use the Name of the node *@
+            var navigationTitle = String.IsNullOrEmpty(node.navigationTitle) ? node.Name : node.navigationTitle;
+
+            @* if there is no umbracoRedirect, then use the Url of the node *@
+            var navigationURL = String.IsNullOrEmpty(node.umbracoRedirect) ? node.Url : node.umbracoRedirect;
+
+            @* get all newChildren where UmbracoNaviHide is not true *@
+            var visibleChildren = node.Children.Where("DocumentTypeAlias != \"Folder\" && DocumentTypeAlias != \"Gallery\" && !umbracoNaviHide");
+
+            @* create a class of "current" if this node is the page you are currently on *@
+            var currentClass = node.IsAncestorOrSelf(CurrentPage) ? "class=\"active\"" : string.Empty;
+
+            <li @Html.Raw(currentClass)>
+                <a href="@navigationURL">@navigationTitle</a>
+
+                @* if this node has visible children and we have not reached maxLevels, then run this helper again to create a sub menu *@
+                @if (visibleChildren.Any() && node.Level <= maxLevels)
+                {
+                    @traverse(node, maxLevels, node.Level);
+                }
+            </li>
+        }
+    </ul>
+    }
+

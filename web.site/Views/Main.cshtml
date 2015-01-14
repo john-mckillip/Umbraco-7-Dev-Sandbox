@@ -1,0 +1,77 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using ClientDependency.Core.Mvc
+@using ClientDependency.Core
+@{
+    Layout = null;
+
+    //get the current full URL for sharing on social media
+    var currentFullUrl = Request.Url.GetLeftPart(UriPartial.Authority) + Request.Url.PathAndQuery;
+
+    dynamic homeNode = Umbraco.Content(1059);
+
+    Html.RequiresJs("~/scripts/jquery.min.js");
+    Html.RequiresJs("~/scripts/jquery.dropotron.min.js");
+    Html.RequiresJs("~/scripts/skel.min.js");
+    Html.RequiresJs("~/scripts/skel-layers.min.js");
+    Html.RequiresJs("~/scripts/init.js");
+    Html.RequiresCss("~/css/skel.css");
+    Html.RequiresCss("~/css/style.css");
+    Html.RequiresCss("~/css/style-wide.css");
+    Html.RequiresCss("~/css/style-noscript.css");
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@Umbraco.Field("pageTitle", altFieldAlias: "pageName")</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
+    @RenderSection("ExtraStyles", false)
+    @Html.RenderCssHere()
+</head>
+<body class="index loading">
+
+    <!-- Header -->
+    @{
+        string header = "alt";
+
+        if (CurrentPage.AncestorOrSelf().Level != 1)
+        {
+            header = " ";
+        }
+    }
+
+    <header id="header" class="@header">
+        <a href="/"><img id="logo" src="~/images/logo.png" /></a>
+        <nav id="nav">
+            @Html.Partial("_NavigationMenu", @Model.Content)
+        </nav>
+    </header>
+
+    @RenderBody()
+
+    <!-- Footer -->
+    <footer id="footer">
+
+        <ul class="icons">
+            <li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
+            <li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
+            <li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
+            <li><a href="#" class="icon circle fa-github"><span class="label">Github</span></a></li>
+            <li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
+        </ul>
+
+        @{
+            string currentYear = System.DateTime.Now.Year.ToString();
+        }
+
+        <span class="copyright">&copy; @currentYear John McKillip. All Right On!</span>
+
+    </footer>
+    @RenderSection("ExtraScripts", false)
+    @Html.RenderJsHere()
+</body>
+</html>
