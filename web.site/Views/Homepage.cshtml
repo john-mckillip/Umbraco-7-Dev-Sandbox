@@ -13,15 +13,7 @@
 <!-- Main -->
 <article id="main">
 
-    <header class="special container" id="why">
-        <span class="icon @CurrentPage.introIcon"></span>
-        <h2>
-            @CurrentPage.introTitle
-        </h2>
-        <p>
-            @CurrentPage.introCopy
-        </p>
-    </header>
+    @{Html.RenderPartial("_HomepageIntro");}
 
     <!-- One -->
     <section class="wrapper style2 container special-alt">
