@@ -1,12 +1,12 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<web.site.Models.ViewModels.HomepageViewModel>
 @{
     Layout = "Main.cshtml";
 }
 
 <!-- Banner -->
 <section id="banner">
-
-    @{Html.RenderPartial("_HomepageHero");}
+    
+    @{Html.RenderPartial("_HomepageHero", Model);}
 
 </section>
 

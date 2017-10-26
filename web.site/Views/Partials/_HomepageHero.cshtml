@@ -1,23 +1,22 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+﻿@model web.site.Models.ViewModels.HomepageViewModel
 
 <div class="inner">
 
     <header>
-        @if (CurrentPage.HasValue("heroTitle"))
+        @if (!string.IsNullOrWhiteSpace(Model.HeroTitle))
         {
-            <h2>@CurrentPage.heroTitle</h2>
+            <h2>@Model.HeroTitle</h2>
         }
     </header>
-    @if (CurrentPage.HasValue("heroSubtitle"))
+    @if (!string.IsNullOrWhiteSpace(Model.HeroSubtitle))
     {
-        <p>@CurrentPage.heroSubtitle</p>
+        <p>@Model.HeroSubtitle</p>
     }
     <footer>
         <ul class="buttons vertical">
-            @if (CurrentPage.HasValue("heroButtonLink"))
+            @if (!string.IsNullOrWhiteSpace(Model.HeroLink.Link))
             {
-                string buttonTitle = CurrentPage.HasValue("heroButtonTitle") ? CurrentPage.heroButtonTitle : "Learn More";
-                <li><a href="@CurrentPage.heroButtonLink" class="button fit scrolly">@buttonTitle</a></li>
+                <li><a href="@Model.HeroLink.Link" class="button fit scrolly">@Model.HeroButtonTitle</a></li>
             }
         </ul>
     </footer>

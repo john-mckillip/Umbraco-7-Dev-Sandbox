@@ -12,8 +12,6 @@ namespace web.site.Controllers
     {
         private readonly IRenderingCreatorScoped _ViewModelCreator;
 
-        public CustomApplicationBaseController() { }
-
         public CustomApplicationBaseController(IRenderingCreatorScoped viewModelCreator)
         {
             _ViewModelCreator = viewModelCreator;

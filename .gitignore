@@ -187,3 +187,8 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/.vs/UmbracoDevSandbox.sqlite
+/.vs/UmbracoDevSandbox/v15/Server/sqlite3
+/.vs/UmbracoDevSandbox/v15/sqlite3/db.lock
+/.vs/UmbracoDevSandbox/v15/sqlite3/storage.ide-shm
+/.vs/UmbracoDevSandbox/v15/sqlite3/storage.ide-wal
